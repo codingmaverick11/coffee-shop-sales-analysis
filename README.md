@@ -225,15 +225,6 @@ Potential actions:
 
 ---
 
-#  Project Files
-
-- `Coffee_Sales_Cleaning.py`
-- `coffee_sales.csv`
-- `coffee_sales.pbix`
-- `README.md`
-- Dashboard Screenshots
-
----
 
 #  Project Outcome
 
