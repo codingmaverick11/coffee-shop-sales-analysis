@@ -1,0 +1,37 @@
+table 'category sales trend'
+	lineageTag: 0fd118ad-5a83-4b86-83c0-0a81fd98e865
+
+	column product_category
+		dataType: string
+		lineageTag: 28219902-3b17-4ff3-8bbd-be2d63b59715
+		summarizeBy: none
+		sourceColumn: product_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_revenue
+		dataType: decimal
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		lineageTag: 42deef7b-1209-4c92-95c9-04642a538cab
+		summarizeBy: none
+		sourceColumn: total_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	partition 'category sales trend' = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\anant\OneDrive\Desktop\Coffee Shop Sales\sql tables\category sales trend.csv"), [Delimiter = ",", Columns = 2, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"product_category", type text}, {"total_revenue", type number}}, "en-US"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed column type",{{"total_revenue", Currency.Type}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,64 @@
+table Measure
+	lineageTag: 4365b55d-a62a-4bfd-bbc8-5e05975d0265
+
+	measure 'Total Revenue' =
+			
+			SUMX(
+			    cleaned_data,
+			    cleaned_data[transaction_qty] * cleaned_data[unit_price]
+			)
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		lineageTag: 19b9250b-101c-4d74-992a-5fe49628af7e
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure 'Total Transactions' =
+			
+			DISTINCTCOUNT(cleaned_data[transaction_id])
+		formatString: 0
+		lineageTag: dd5ba775-02be-4bc3-98c2-75cc7268556e
+
+	measure 'Total Quantity Sold' =
+			
+			SUM(cleaned_data[transaction_qty])
+		formatString: 0
+		lineageTag: ce394caf-c946-44c7-be34-3f65d9608fd4
+
+	measure 'avg order value' = AVERAGE(cleaned_data[sale_price])
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		lineageTag: 030c2a8f-1987-4deb-b41e-3cc786453466
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	measure 'Top Product' =
+			
+			VAR T =
+			    TOPN(
+			        1,
+			        SUMMARIZE(
+			            cleaned_data,
+			            cleaned_data[product_detail],
+			            "Qty", SUM(cleaned_data[transaction_qty])
+			        ),
+			        [Qty], DESC
+			    )
+			RETURN
+			    MAXX(T, cleaned_data[product_detail])
+		lineageTag: 0229caf2-9c0f-4fa3-bd54-b67613629e47
+
+	column Value
+		isHidden
+		formatString: 0
+		lineageTag: 227ce476-b61c-4010-a79e-b688dbf49199
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Measure = calculated
+		mode: import
+		source = {0}
+
+	annotation PBI_Id = 4404d1be513d4968aabc7514fee4ba11
+

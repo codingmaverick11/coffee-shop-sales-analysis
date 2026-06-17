@@ -1,0 +1,44 @@
+table 'time sales trend'
+	lineageTag: f2d3e3c8-d328-466e-a819-cd3686c2564a
+
+	column time_period
+		dataType: string
+		lineageTag: aba80d1c-80d2-4230-9904-b86069ca8bb5
+		summarizeBy: none
+		sourceColumn: time_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column transactions
+		dataType: int64
+		formatString: 0
+		lineageTag: 523035ed-221a-4e8c-b987-9cdb1f1756d7
+		summarizeBy: none
+		sourceColumn: transactions
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_sales
+		dataType: int64
+		formatString: 0
+		lineageTag: 79c1e1c9-7536-420b-bab5-cafbec8c14e1
+		summarizeBy: none
+		sourceColumn: total_sales
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'time sales trend' = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\anant\OneDrive\Desktop\Coffee Shop Sales\sql tables\time sales trend.csv"), [Delimiter = ",", Columns = 3, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"time_period", type text}, {"transactions", Int64.Type}, {"total_sales", type number}}, "en-US"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed column type",{{"total_sales", Int64.Type}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

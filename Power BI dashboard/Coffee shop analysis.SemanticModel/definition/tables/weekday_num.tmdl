@@ -1,0 +1,55 @@
+table weekday_num
+	lineageTag: 4ba94d28-46f6-4fa9-ab15-26be66e665f6
+
+	column weekday
+		dataType: string
+		lineageTag: b59d8a62-085d-4f34-9309-965db121d039
+		summarizeBy: none
+		sourceColumn: weekday
+
+		annotation SummarizationSetBy = Automatic
+
+	column weekday_num
+		dataType: double
+		lineageTag: 366e1efd-07e2-4fab-ac58-9230b93a88e3
+		summarizeBy: none
+		sourceColumn: weekday_num
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column revenue
+		dataType: decimal
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		lineageTag: d957746d-4980-411c-9e9b-7830b4d5eba6
+		summarizeBy: none
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	partition weekday_num = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\anant\OneDrive\Desktop\Coffee Shop Sales\sql tables\week sales trend.csv"), [Delimiter = ",", Columns = 3, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"weekday_num", Int64.Type}, {"weekday", type text}, {"revenue", type number}}, "en-US"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed column type",{{"revenue", Currency.Type}}),
+				    #"Reordered Columns" = Table.ReorderColumns(#"Changed Type",{"weekday", "weekday_num", "revenue"}),
+				    #"Replaced Value" = Table.ReplaceValue(#"Reordered Columns",6,7,Replacer.ReplaceValue,{"weekday_num"}),
+				    #"Replaced Value1" = Table.ReplaceValue(#"Replaced Value",5,6,Replacer.ReplaceValue,{"weekday_num"}),
+				    #"Replaced Value2" = Table.ReplaceValue(#"Replaced Value1",4,5,Replacer.ReplaceValue,{"weekday_num"}),
+				    #"Replaced Value3" = Table.ReplaceValue(#"Replaced Value2",3,4,Replacer.ReplaceValue,{"weekday_num"}),
+				    #"Replaced Value4" = Table.ReplaceValue(#"Replaced Value3",2,3,Replacer.ReplaceValue,{"weekday_num"}),
+				    #"Replaced Value5" = Table.ReplaceValue(#"Replaced Value4",1,2,Replacer.ReplaceValue,{"weekday_num"}),
+				    #"Replaced Value6" = Table.ReplaceValue(#"Replaced Value5",0,1,Replacer.ReplaceValue,{"weekday_num"})
+				in
+				    #"Replaced Value6"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

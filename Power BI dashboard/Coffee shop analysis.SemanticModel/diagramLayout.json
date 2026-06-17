@@ -1,0 +1,139 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 247.33332824707031,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 323,
+            "y": 79
+          },
+          "nodeIndex": "cleaned_data",
+          "nodeLineageTag": "8a5fa2c7-8346-4ace-874c-3c8952ea2abb",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 8,
+            "y": 464
+          },
+          "nodeIndex": "category sales trend",
+          "nodeLineageTag": "0fd118ad-5a83-4b86-83c0-0a81fd98e865",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 257
+          },
+          "nodeIndex": "month sales trend",
+          "nodeLineageTag": "fdfabffb-a1a2-46ce-9487-29ebd90cddb2",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 0,
+            "y": 0
+          },
+          "nodeIndex": "store sales trend",
+          "nodeLineageTag": "387f773c-6724-422d-a12f-ca6ffd63b48b",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 586,
+            "y": 0
+          },
+          "nodeIndex": "time sales trend",
+          "nodeLineageTag": "f2d3e3c8-d328-466e-a819-cd3686c2564a",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 732,
+            "y": 419
+          },
+          "nodeIndex": "total_revenue",
+          "nodeLineageTag": "bbdb619e-d340-438e-bae1-f9408d709e06",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 470,
+            "y": 463
+          },
+          "nodeIndex": "week sales trend",
+          "nodeLineageTag": "91823552-64cd-4fdd-9686-a5de692cb0af",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 726.99991607666016,
+            "y": 200
+          },
+          "nodeIndex": "Measure",
+          "nodeLineageTag": "4365b55d-a62a-4bfd-bbc8-5e05975d0265",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1016,
+            "y": 231.5
+          },
+          "nodeIndex": "weekday_num",
+          "nodeLineageTag": "4ba94d28-46f6-4fa9-ab15-26be66e665f6",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

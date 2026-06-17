@@ -1,0 +1,130 @@
+table cleaned_data
+	lineageTag: 8a5fa2c7-8346-4ace-874c-3c8952ea2abb
+
+	column transaction_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 97240ae2-6b14-44fa-80c8-d6f6df2754f7
+		summarizeBy: sum
+		sourceColumn: transaction_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column transaction_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 341e2461-d23f-4e12-8bc9-bde1cf6bb04e
+		summarizeBy: none
+		sourceColumn: transaction_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column transaction_time
+		dataType: dateTime
+		formatString: Long Time
+		lineageTag: 1b26c661-869d-4f00-88d3-f45f65e5b97b
+		summarizeBy: none
+		sourceColumn: transaction_time
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Time
+
+	column transaction_qty
+		dataType: int64
+		formatString: 0
+		lineageTag: deb4c6b3-fe9c-407d-b692-eab74c71cca3
+		summarizeBy: sum
+		sourceColumn: transaction_qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 2159d1e9-a958-4ea5-babd-e017e3ddc57a
+		summarizeBy: sum
+		sourceColumn: store_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column store_location
+		dataType: string
+		lineageTag: 1aee5987-da76-4a52-b0a5-ad7f36534950
+		summarizeBy: none
+		sourceColumn: store_location
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 733615d9-b5ba-4fd9-af2f-0f1ae03a538e
+		summarizeBy: sum
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: decimal
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		lineageTag: 25b2ca15-4480-4b00-9be7-530dc720d5a7
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	column product_category
+		dataType: string
+		lineageTag: b9901630-f3b8-4646-af78-8dda8913f1b3
+		summarizeBy: none
+		sourceColumn: product_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_type
+		dataType: string
+		lineageTag: eca38054-03e9-4b09-87d7-f3a7d287eb51
+		summarizeBy: none
+		sourceColumn: product_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_detail
+		dataType: string
+		lineageTag: 722c781b-f950-48cb-8a2e-af29c881e635
+		summarizeBy: none
+		sourceColumn: product_detail
+
+		annotation SummarizationSetBy = Automatic
+
+	column sale_price
+		dataType: decimal
+		formatString: "₹"\ #,0.###############;#,0.###############\ -"₹";"₹"\ #,0.###############
+		lineageTag: ef9fefcc-4f7a-4f07-875f-b26124348847
+		summarizeBy: sum
+		sourceColumn: sale_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-IN"}
+
+	partition cleaned_data = m
+		mode: import
+		source =
+				let
+				  Source = Csv.Document(File.Contents("C:\Users\anant\OneDrive\Desktop\Coffee Shop Sales\sql tables\cleaned_data.csv"), [Delimiter = ",", Columns = 12, QuoteStyle = QuoteStyle.None]),
+				  #"Promoted headers" = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+				  #"Changed column type" = Table.TransformColumnTypes(#"Promoted headers", {{"transaction_id", Int64.Type}, {"transaction_date", type date}, {"transaction_time", type time}, {"transaction_qty", Int64.Type}, {"store_id", Int64.Type}, {"store_location", type text}, {"product_id", Int64.Type}, {"unit_price", type number}, {"product_category", type text}, {"product_type", type text}, {"product_detail", type text}, {"sale_price", type number}}, "en-US"),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Changed column type",{{"transaction_date", type date}, {"unit_price", Currency.Type}, {"sale_price", Currency.Type}})
+				in
+				  #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

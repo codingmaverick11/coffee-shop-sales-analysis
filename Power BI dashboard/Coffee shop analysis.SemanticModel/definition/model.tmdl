@@ -1,0 +1,28 @@
+model Model
+	culture: en-IN
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["cleaned_data","category sales trend","month sales trend","store sales trend","time sales trend","total_revenue","week sales trend","weekday_num"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table cleaned_data
+ref table DateTableTemplate_de38aafe-1118-4193-a2c9-ed7e1b1ce9b7
+ref table 'category sales trend'
+ref table 'month sales trend'
+ref table LocalDateTable_9355061f-4bb0-443e-aaf3-7321a146bafa
+ref table 'store sales trend'
+ref table 'time sales trend'
+ref table total_revenue
+ref table 'week sales trend'
+ref table Measure
+ref table weekday_num
+
+ref cultureInfo en-IN
+

@@ -1,0 +1,31 @@
+relationship AutoDetected_02b3136e-d27d-43ca-8da5-077bc4d71b70
+	crossFilteringBehavior: bothDirections
+	fromColumn: cleaned_data.product_category
+	toColumn: 'category sales trend'.product_category
+
+relationship 59c6b62d-b252-44a8-8c78-caa11e52ee48
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'month sales trend'.month
+	toColumn: LocalDateTable_9355061f-4bb0-443e-aaf3-7321a146bafa.Date
+
+relationship AutoDetected_32cdd150-29c0-4bb0-b927-f5c8284b8025
+	fromColumn: cleaned_data.store_location
+	toColumn: 'store sales trend'.store_location
+
+relationship d052c563-e0ba-5a86-9b49-43c7d17bee23
+	fromColumn: cleaned_data.transaction_date
+	toColumn: 'month sales trend'.month
+
+relationship 0a3a41f5-2fa0-8447-4446-c24878170042
+	fromColumn: cleaned_data.transaction_time
+	toColumn: 'time sales trend'.time_period
+
+relationship 0cdbe1a1-c7ad-af87-3dec-4d2de11fd058
+	fromColumn: cleaned_data.transaction_date
+	toColumn: 'week sales trend'.weekday
+
+relationship ed4c2ef5-a439-b89c-98c6-5618759a2bed
+	crossFilteringBehavior: bothDirections
+	fromColumn: 'week sales trend'.weekday
+	toColumn: weekday_num.weekday
+
